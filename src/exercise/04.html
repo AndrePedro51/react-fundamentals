@@ -40,10 +40,24 @@
             </div>
         )
     }
+
+    function Soma({num1, num2}){
+        return (
+            
+            <React.Fragment>
+            {/*React.Fragment permite agrupar varios elementos HTML */}
+            <p>Resultado da soma</p>
+            <div>{num1+num2}</div>
+            </React.Fragment>
+        )
+
+    }
     //Usando o componente personalizado representado pela função Message
     //Tag com inicial maiuscula é um componente react
     element = (
         <div className = "container">
+            {/* quando for passar um valor nao string, deve ser entre chaves*/}
+            <Soma num1={100} num2 = {200}/>
             <Message subject = 'mamae' greeting = 'Alo'/>
             <Message greeting = 'bem vindo' subject = 'humano'/>
             <Message greeting = 'Hello' subject = 'World'/>

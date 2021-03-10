@@ -17,8 +17,9 @@ const mediumBox = <div className ='box box--medium' style={{backgroundColor: 'pi
 const largeBox = <div className ='box box--large' style={{backgroundColor: 'orange', fontStyle: 'italic'}}>large orange box</div>
 
 
-function Box({className, style, ...props}){
-    return <div className={'box ' + className} style={{fontStyle: 'italic', ...style}} {...props}></div>
+function Box({color = 'lightblue', style = {}, size = 'medium', ...props}){
+    const className = 'box box--' + size //Concatenação
+    return <div className={className} style={{fontStyle: 'italic',backgroundColor: color, ...style}} {...props}></div>
 }
 function App() {
   return (
@@ -27,9 +28,10 @@ function App() {
         escritas em kebab-case, tornam-se  os nomes das propriedades do objeto. Em camelCase o valor das
         propriedades vai entre aspas*/}
         <div style={{marginTop: '20px', backgroundColor: 'blue'}}>Teste</div> 
-        <Box className="box--small" style={{backgroundColor: 'lightBlue'}} id='box1'>Small lightBlue Box</Box>
-        <Box className="box--medium" style={{backgroundColor: 'pink'}} id='box2'>Medium Pink Box</Box>
-        <Box className="box--large" style={{backgroundColor: 'orange'}} id='box3'>Large Orange Box</Box>
+        <Box size="small" id='box1'>Small LightBlue Box</Box>
+        <Box color = "pink" id='box2'>Medium Pink Box</Box>
+        <Box size = "large" color = "orange" id='box3'>Large Orange Box</Box>
+        <Box>Teste</Box>
         
     </div>
   )
