@@ -19,36 +19,66 @@ function UsernameForm({onSubmitUsername}) {
   // 🐨 make sure to associate the label to the input.
   // to do so, set the value of 'htmlFor' prop of the label to the id of input
 
-    function handleSubmit(event){
-        event.preventDefault() //Previne o recarregamento do formulario
-        //const username = document.querySelector('#username').value
-        const username = usernameE1.current.value
-        onSubmitUsername(username)
-    
-    }
+  // Criando uma ref, um recurso do React para acessar o conteúdo
+  // de elementos de formulários
+  const usernameEl = React.useRef()
 
-    const usernameE1 = React.useRef(null) // Criando uma ref, recurso do react para acessar os conteudos
+  //Criar uma variável de estado de React
+  //Uma variável de estado mantém uma informação mesmo que o conteudo da pagina
+  //seja atualizado
+  //Para ler o conteudo da variavel de estado, podemos acessa-la diretamente.
+  //No entanto, para alterar seu conteudo, usamos a função set
+
+  //error -> variavel de estado
+  //setError -> função de atualização da variavel der estado
+  //A função useState aceita um parametro que é um valor inicial da variavel
+  //de estado. Ou seja nesse caso, error tem um valor inicial de string vazia
+
+  const [msg, setMsg] = React.useState('')
+  const [username, setUsername] = React.useState('')
+   
+
+  function handleSubmit(event) {
+      event.preventDefault()  // Previne o recarregamento do formulário
+      //const username = document.getElementById('username').value
+      //const username = document.querySelector('#username').value
+      const username = usernameEl.current.value
+      onSubmitUsername(username)
+  }
+
+  function handleChange(event){
+      //Capturando valor do input
+      const val = event.target.value
+
+      //Armazena a variave de estado, o valor do input ja convertido a minusculas
+      setUsername(val.toLowerCase())
+      //o input será valido se seu conteudo for identico
+      //ao proprio conteudo em munisculas
+      //const isValid = val == val.toLowerCase()
+
+      //Atualizado o estado
+
+      //setMsg(isValid ? '' : 'O valor informado deve estar em minúsculas.')
+  }
+
   return (
     <form onSubmit={handleSubmit}>
       <div>
         <label>Username:</label>
-        {/*Associando o ref ao input*/ }
-        <input ref = {usernameE1} id="username" type="text" />
+        {/* Associando o ref usernameEl ao input */}
+        <input ref={usernameEl} id="username" type="text" onChange = {handleChange} value = {username}/>
       </div>
+      {/*o conteudo da variavel de estado pode ser lido sem necessidade de função auxiliar*/}
+      <div style = {{color : 'red'}}>{msg}</div>
       <button type="submit">Submit</button>
     </form>
   )
+
 }
-
-
-
-
 
 function App() {
   const onSubmitUsername = username => alert(`You entered: ${username}`)
   return <UsernameForm onSubmitUsername={onSubmitUsername} />
 }
-//Quando der o submit, vai chamar a função handleSubmit
-//document.querySelector('form').addEventListener('submit', handleSubmit)
 
 export default App
